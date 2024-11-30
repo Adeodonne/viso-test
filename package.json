@@ -1,7 +1,7 @@
 {
   "name": "inforce-react-test",
   "version": "0.1.0",
-  "homepage": "https://Adeodonne.github.io/",
+  "homepage": "https://Adeodonne.github.io/viso-test",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^2.3.0",
