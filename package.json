@@ -2,6 +2,7 @@
   "name": "inforce-react-test",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://Adeodonne.github.io/viso-test",
   "dependencies": {
     "@reduxjs/toolkit": "^2.3.0",
     "@tanstack/react-query": "^5.62.0",
@@ -24,6 +25,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -62,6 +65,7 @@
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-react": "^7.37.2",
     "eslint-plugin-react-hooks": "^5.0.0",
+    "gh-pages": "^6.2.0",
     "globals": "^15.12.0",
     "postcss": "^8.4.49",
     "prettier": "^3.3.3",
