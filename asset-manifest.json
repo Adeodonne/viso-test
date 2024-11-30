@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/viso-test/static/css/main.5c09fc10.css",
-    "main.js": "/viso-test/static/js/main.42ea9663.js",
+    "main.js": "/viso-test/static/js/main.d6980658.js",
     "static/media/List.svg": "/viso-test/static/media/List.5c03354b3b9cea0037187d379b4e49c1.svg",
     "index.html": "/viso-test/index.html",
     "static/media/AddRecipe.svg": "/viso-test/static/media/AddRecipe.5b6009b9910bd9d7d7e60073c842a20d.svg",
     "static/media/ArrowLeft.svg": "/viso-test/static/media/ArrowLeft.2a9f52e5aeb11a896d3d360b827d4c48.svg",
     "static/media/ArrowRight.svg": "/viso-test/static/media/ArrowRight.263d0069b0dc1df55d9ccbbb8e012f05.svg",
     "main.5c09fc10.css.map": "/viso-test/static/css/main.5c09fc10.css.map",
-    "main.42ea9663.js.map": "/viso-test/static/js/main.42ea9663.js.map"
+    "main.d6980658.js.map": "/viso-test/static/js/main.d6980658.js.map"
   },
   "entrypoints": [
     "static/css/main.5c09fc10.css",
-    "static/js/main.42ea9663.js"
+    "static/js/main.d6980658.js"
   ]
 }
