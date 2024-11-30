@@ -17,11 +17,15 @@ const recipeSlice = createSlice({
         state.ids.push(action.payload);
       }
     },
+    removeRecipeId(state, action: PayloadAction<number>) {
+      state.ids = state.ids.filter((id) => id !== action.payload);
+    },
   },
 });
 
-export const { addRecipeId } = recipeSlice.actions;
+export const { addRecipeId, removeRecipeId } = recipeSlice.actions;
 
-export const selectRecipeIds = (state: { pickedRecipes: RecipeState }) => state.pickedRecipes.ids;
+export const selectRecipeIds = (state: { pickedRecipes: RecipeState }) =>
+  state.pickedRecipes.ids;
 
 export const pickedRecipesReducer = recipeSlice.reducer;

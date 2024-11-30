@@ -10,6 +10,7 @@ import { Pagination } from '../../../widgets/Pagination';
 import { RootState, AppDispatch } from '../../../app/storage/store';
 import { fetchCategories } from '../../../entities/categories/model/slices/categoriesSlice';
 import { fetchRecipes } from '../../../entities/recipes/model/slices/recipesSlice';
+import { removeRecipeId } from '../../../entities/pickedRecipes/model/slices/pickedRecipes';
 
 export const AllRecipes: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -56,7 +57,11 @@ export const AllRecipes: React.FC = () => {
   );
 
   const addRecipeToPickedList = (id: number) => {
-    dispatch(addRecipeId(id));
+    if (pickedRecipeIds.includes(id)) {
+      dispatch(removeRecipeId(id));
+    } else {
+      dispatch(addRecipeId(id));
+    }
   };
 
   return (
@@ -68,10 +73,11 @@ export const AllRecipes: React.FC = () => {
           onCategoryChange={handleCategoryChange}
         />
         <div
-          className="w-8 h-8 cursor-pointer"
+          className="cursor-pointer flex items-center"
           onClick={() => navigate(`/picked-recipes`)}
         >
-          <img src={List} alt={'List of picked recipes'} />
+          <img src={List} alt={'List of picked recipes'} className="w-8 h-8" />
+          <span className="ml-2 text-sm truncate">Your recipes</span>
         </div>
       </div>
       {selectedCategory === 'All' && (
