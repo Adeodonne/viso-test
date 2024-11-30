@@ -6,7 +6,7 @@ import { PickedRecipes } from '../../../views/PickedRecipes/PickedRecipes/Picked
 
 export const AppNavigator = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/">
       <Routes>
         <Route path="/" element={<AllRecipes />} />
         <Route path="/recipe/:id" element={<RecipeDetails />} />

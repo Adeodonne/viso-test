@@ -2,12 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addRecipeId } from '../../../entities/pickedRecipes/model/pickedRecipes';
-import {
-  AddRecipe,
-  ArrowLeft,
-  ArrowRight,
-  List,
-} from '../../../shared/ui/Icon/ui/Icon';
+import { List } from '../../../shared/ui/Icon/ui/Icon';
+import { CategoryFilter } from '../../../widgets/CategoryFilter/ui/CategoryFilter';
+import { SearchInput } from '../../../widgets/SearchInput/ui/SearchInput';
+import { RecipeCard } from '../../../widgets/RecipeCard/ui/RecipeCard';
+import { Pagination } from '../../../widgets/Pagination/ui/Pagination';
 
 export const AllRecipes: React.FC = () => {
   const [recipes, setRecipes] = useState<any[]>([]);
@@ -25,7 +24,6 @@ export const AllRecipes: React.FC = () => {
     const debounceTimer = setTimeout(() => {
       setDebouncedSearchQuery(searchQuery);
     }, 500);
-
     return () => {
       clearTimeout(debounceTimer);
     };
@@ -58,7 +56,6 @@ export const AllRecipes: React.FC = () => {
       setTotalPages(Math.ceil((data.meals?.length || 0) / itemsPerPage));
       setCurrentPage(1);
     };
-
     fetchRecipes();
   }, [selectedCategory, debouncedSearchQuery]);
 
@@ -82,30 +79,7 @@ export const AllRecipes: React.FC = () => {
   );
 
   const addRecipeToPickedList = (id: number) => {
-    console.log(id);
     dispatch(addRecipeId(id));
-  };
-
-  const renderPagination = () => {
-    const pages: JSX.Element[] = [];
-
-    for (let i = 1; i <= totalPages; i++) {
-      pages.push(
-        <button
-          key={i}
-          onClick={() => handlePageChange(i)}
-          className={`px-4 py-2 border rounded ${
-            currentPage === i
-              ? 'bg-blue-500 text-white'
-              : 'bg-white text-blue-500'
-          }`}
-        >
-          {i}
-        </button>
-      );
-    }
-
-    return pages;
   };
 
   return (
@@ -113,86 +87,30 @@ export const AllRecipes: React.FC = () => {
       <div className="w-8 h-8" onClick={() => navigate(`/picked-recipes`)}>
         <img src={List} alt={'List of picked recipes'} />
       </div>
-      <div className="mb-4">
-        <label htmlFor="category" className="block text-lg font-semibold mb-2">
-          Filter by Category:
-        </label>
-        <select
-          id="category"
-          value={selectedCategory}
-          onChange={handleCategoryChange}
-          className="border p-2 rounded w-full"
-        >
-          {categories.map((category) => (
-            <option key={category} value={category}>
-              {category}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className="mb-4">
-        <label htmlFor="search" className="block text-lg font-semibold mb-2">
-          Search Recipes:
-        </label>
-        <input
-          id="search"
-          type="text"
-          value={searchQuery}
-          onChange={handleSearchChange}
-          placeholder="Search for a recipe..."
-          className="border p-2 rounded w-full"
-        />
-      </div>
+      <CategoryFilter
+        categories={categories}
+        selectedCategory={selectedCategory}
+        onCategoryChange={handleCategoryChange}
+      />
+      <SearchInput
+        searchQuery={searchQuery}
+        onSearchChange={handleSearchChange}
+      />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {paginatedRecipes.map((recipe) => (
-          <div
+          <RecipeCard
             key={recipe.idMeal}
-            className="border p-4 rounded shadow-md bg-white cursor-pointer"
-            onClick={() => navigate(`/recipe/${recipe.idMeal}`)}
-          >
-            <img
-              src={recipe.strMealThumb}
-              alt={recipe.strMeal}
-              className="w-full h-40 object-cover rounded"
-            />
-            <h3 className="text-lg font-semibold mt-2">{recipe.strMeal}</h3>
-            <div
-              className="bg-green-500 w-2 h-2"
-              onClick={(event) => {
-                event.stopPropagation();
-                addRecipeToPickedList(recipe.idMeal);
-              }}
-            >
-              <img src={AddRecipe} alt={'Add to list'} />
-            </div>
-          </div>
+            recipe={recipe}
+            onAddRecipe={addRecipeToPickedList}
+            onRecipeClick={(id: number) => navigate(`/recipe/${id}`)}
+          />
         ))}
       </div>
-      <div className="flex justify-center items-center mt-4">
-        <button
-          onClick={() => handlePageChange(1)}
-          className={`px-4 py-2 w-10 h-10 border rounded mr-2 ${
-            currentPage === 1
-              ? 'opacity-50 cursor-not-allowed'
-              : 'bg-white text-blue-500'
-          }`}
-          disabled={currentPage === 1}
-        >
-          <img src={ArrowLeft} />
-        </button>
-        <div className="flex space-x-2">{renderPagination()}</div>
-        <button
-          onClick={() => handlePageChange(totalPages)}
-          className={`px-4 py-2 w-10 h-10 border rounded ml-2 ${
-            currentPage === totalPages
-              ? 'opacity-50 cursor-not-allowed'
-              : 'bg-white text-blue-500'
-          }`}
-          disabled={currentPage === totalPages}
-        >
-          <img src={ArrowRight} />
-        </button>
-      </div>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+      />
     </div>
   );
 };
