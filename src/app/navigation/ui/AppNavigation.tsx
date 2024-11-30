@@ -2,7 +2,7 @@ import React from 'react';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import { AllRecipes } from '../../../views/AllRecipes';
 import { RecipeDetails } from '../../../views/RecipeDetails';
-import { PickedRecipes } from '../../../views/PickedRecipes/PickedRecipes/PickedRecipes';
+import { PickedRecipes } from '../../../views/PickedRecipes';
 
 export const AppNavigator = () => {
   return (

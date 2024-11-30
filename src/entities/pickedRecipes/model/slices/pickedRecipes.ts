@@ -22,6 +22,6 @@ const recipeSlice = createSlice({
 
 export const { addRecipeId } = recipeSlice.actions;
 
-export const selectRecipeIds = (state: { recipes: RecipeState }) => state.recipes.ids;
+export const selectRecipeIds = (state: { pickedRecipes: RecipeState }) => state.pickedRecipes.ids;
 
-export const recipeReducer = recipeSlice.reducer;
+export const pickedRecipesReducer = recipeSlice.reducer;
